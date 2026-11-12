@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#10131c">
+<title>JCVS Rum</title>
+<style>
+:root{--bg:#10131c;--panel:#1a2030;--panel2:#222b3e;--text:#f4f7fb;--muted:#9aa8bd;--accent:#b8ff3b;--accent2:#54d6ff;--line:#303b50}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0%,#24334a 0,#10131c 42%);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
+button,input,select{font:inherit}button{cursor:pointer;border:0}
+.splash{position:fixed;inset:0;z-index:10;display:grid;place-items:center;background:linear-gradient(145deg,#10131c,#1d2a3d);transition:opacity .6s,visibility .6s}.splash.hide{opacity:0;visibility:hidden}.splash-inner{text-align:center;padding:28px;animation:rise 1s ease both}.logo{font-size:clamp(3.2rem,15vw,6rem);font-weight:1000;letter-spacing:-.09em;line-height:1}.logo span{color:var(--accent)}.splash p{color:var(--muted);letter-spacing:.28em;font-size:.75rem}.pulse{width:13px;height:13px;border-radius:50%;background:var(--accent);margin:32px auto;box-shadow:0 0 0 0 #b8ff3b88;animation:pulse 1.5s infinite}
+@keyframes rise{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:none}}@keyframes pulse{to{box-shadow:0 0 0 18px #b8ff3b00}}
+header{max-width:980px;margin:auto;padding:24px 18px 12px;display:flex;align-items:center;justify-content:space-between}.brand{font-weight:950;font-size:1.45rem;letter-spacing:-.06em}.brand span{color:var(--accent)}.tag{font-size:.7rem;color:var(--muted);letter-spacing:.15em}
+main{max-width:980px;margin:auto;padding:10px 16px 100px}.hero{padding:24px 20px;border:1px solid var(--line);border-radius:26px;background:linear-gradient(135deg,#222d40,#171d2b);position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:180px;height:180px;border:1px solid #b8ff3b33;border-radius:50%;right:-65px;top:-80px;box-shadow:0 0 0 24px #b8ff3b0a,0 0 0 48px #b8ff3b08}.eyebrow{color:var(--accent);font-size:.72rem;font-weight:800;letter-spacing:.16em}.hero h1{font-size:1.8rem;margin:8px 0}.hero p{color:var(--muted);margin:0;font-size:.92rem}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:17px;min-width:0}.card.wide{grid-column:1/-1}.label{color:var(--muted);font-size:.76rem}.value{font-size:1.9rem;font-weight:850;letter-spacing:-.05em;margin-top:7px}.unit{font-size:.8rem;color:var(--muted);font-weight:600;letter-spacing:0}.smallvalue{font-size:1.3rem;font-weight:800;margin-top:8px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.btn{padding:13px 17px;border-radius:14px;font-weight:800;background:var(--accent);color:#12170d}.btn.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}.btn:disabled{opacity:.4;cursor:not-allowed}
+.section-title{font-size:1.12rem;margin:24px 2px 10px}.muted{color:var(--muted);font-size:.85rem}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.field{display:flex;flex-direction:column;gap:7px;flex:1;min-width:120px}.field label{font-size:.76rem;color:var(--muted)}.field input,.field select{width:100%;background:#111725;border:1px solid var(--line);color:var(--text);padding:12px;border-radius:12px;outline:none}.feed-item{padding:13px 0;border-bottom:1px solid var(--line)}.feed-item:last-child{border:0}.feed-item strong{display:block}.feed-item small{color:var(--muted)}
+nav{position:fixed;bottom:0;left:0;right:0;background:#111722ed;backdrop-filter:blur(16px);border-top:1px solid var(--line);display:flex;justify-content:center;gap:clamp(10px,5vw,42px);padding:11px 10px calc(11px + env(safe-area-inset-bottom));z-index:5}nav a{color:var(--muted);text-decoration:none;font-size:.72rem;text-align:center}nav a b{display:block;font-size:1.15rem;margin-bottom:2px;color:var(--accent)}
+#map{height:180px;border-radius:15px;background:linear-gradient(135deg,#172b36,#1b2431);display:grid;place-items:center;color:var(--muted);text-align:center;padding:16px}
+audio{width:100%;margin-top:12px}input[type=file]{font-size:.8rem;color:var(--muted);max-width:100%}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#e8f5d8;color:#17200c;padding:10px 15px;border-radius:12px;font-weight:700;display:none;z-index:20;max-width:90%;text-align:center}
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.card.wide{grid-column:span 2}.hero{padding:30px}.hero h1{font-size:2.3rem}}
+</style>
+</head>
+<body>
+<div class="splash" id="splash"><div class="splash-inner"><div class="logo">JCVS <span>Rum</span></div><p>SUPERE SEU LIMITE</p><div class="pulse"></div><button class="btn" onclick="enterApp()">COMEÇAR</button></div></div>
+<header><div><div class="brand">JCVS <span>Rum</span></div><div class="tag">RUN • TRACK • EVOLVE</div></div><div class="tag" id="gpsStatus">GPS DESLIGADO</div></header>
+<main>
+<section class="hero"><div class="eyebrow">SEU PRÓXIMO DESAFIO COMEÇA AGORA</div><h1>Corra no seu ritmo.</h1><p>Registre seus treinos, acompanhe sua evolução e conquiste novos quilômetros.</p>
+<div class="actions"><button class="btn" id="startBtn" onclick="startRun()">▶ Iniciar corrida</button><button class="btn secondary" id="stopBtn" onclick="stopRun()" disabled>■ Finalizar</button><button class="btn secondary" onclick="resetRun()">↻ Zerar</button></div></section>
+<div class="grid">
+<div class="card"><div class="label">DISTÂNCIA</div><div class="value" id="distance">0.00 <span class="unit">km</span></div></div>
+<div class="card"><div class="label">DURAÇÃO</div><div class="value" id="duration">00:00</div></div>
+<div class="card"><div class="label">RITMO MÉDIO</div><div class="value" id="pace">--:-- <span class="unit">/km</span></div></div>
+<div class="card"><div class="label">PASSOS ESTIMADOS</div><div class="value" id="steps">0</div></div>
+<div class="card wide"><div class="label">GPS / PERCURSO</div><div id="map">Ative o GPS e permita o acesso à localização para acompanhar seu percurso.<br><small>O mapa visual será atualizado com seus dados de localização.</small></div><div class="muted" id="coords">Aguardando localização…</div></div>
+<div class="card wide"><div class="label">PERFIL E MEDIDAS</div><div class="row" style="margin-top:12px"><div class="field"><label for="gender">Personalização</label><select id="gender"><option value="neutro">Padrão</option><option value="masculino">Masculino</option><option value="feminino">Feminino</option><option value="outro">Personalizado</option></select></div><div class="field"><label for="height">Altura (cm)</label><input id="height" type="number" min="80" max="250" placeholder="Ex.: 175"></div><div class="field"><label for="weight">Peso (kg)</label><input id="weight" type="number" min="20" max="300" step=".1" placeholder="Ex.: 75"></div></div><div class="actions"><button class="btn secondary" onclick="saveProfile()">Salvar perfil</button></div><div class="muted" id="profileMsg">Preencha suas medidas para personalizar as estimativas.</div></div>
+<div class="card wide"><div class="label">PLAY DE MÚSICA</div><p class="muted">Escolha uma música armazenada no seu celular para tocar durante a corrida.</p><input type="file" id="musicFile" accept="audio/*"><audio id="audio" controls></audio><div class="muted">A reprodução depende do arquivo escolhido e das permissões do navegador.</div></div>
+<div class="card wide"><div class="label">FEED DE ATIVIDADES</div><div id="feed"><p class="muted">Suas corridas finalizadas aparecerão aqui.</p></div></div>
+</div>
+</main>
+<nav><a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><b>⌂</b>Início</a><a href="#distance"><b>◉</b>Corrida</a><a href="#gender"><b>♙</b>Perfil</a><a href="#audio"><b>♫</b>Música</a><a href="#feed"><b>▤</b>Feed</a></nav>
+<div class="toast" id="toast"></div>
+<script>
+let watchId=null, running=false, startTime=0, elapsed=0, timer=null, distanceMeters=0, lastPosition=null, points=[], history=JSON.parse(localStorage.getItem('jcvsHistory')||'[]'), profile=JSON.parse(localStorage.getItem('jcvsProfile')||'{}');
+const $=id=>document.getElementById(id);
+function enterApp(){$('splash').classList.add('hide')}
+setTimeout(()=>{$('splash').classList.add('hide')},4200);
+function toast(msg){$('toast').textContent=msg;$('toast').style.display='block';setTimeout(()=>$('toast').style.display='none',2800)}
+function fmtTime(s){s=Math.max(0,Math.floor(s));let h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sec=s%60;return h?`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`:`${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`}
+function render(){let km=distanceMeters/1000;$('distance').innerHTML=km.toFixed(2)+' <span class="unit">km</span>';$('duration').textContent=fmtTime(elapsed+(running?(Date.now()-startTime)/1000:0));let pace=km>0?(elapsed+(running?(Date.now()-startTime)/1000:0))/60/km:0;$('pace').innerHTML=(pace?`${String(Math.floor(pace)).padStart(2,'0')}:${String(Math.floor((pace%1)*60)).padStart(2,'0')}`:'--:--')+' <span class="unit">/km</span>';$('steps').textContent=Math.round(km*1300).toLocaleString('pt-BR')}
+function startRun(){if(running)return;if(!navigator.geolocation){toast('Este navegador não oferece suporte a GPS.');return}running=true;startTime=Date.now();$('startBtn').disabled=true;$('stopBtn').disabled=false;$('gpsStatus').textContent='BUSCANDO GPS';timer=setInterval(render,1000);watchId=navigator.geolocation.watchPosition(pos=>{let p={lat:pos.coords.latitude,lon:pos.coords.longitude,accuracy:pos.coords.accuracy};if(lastPosition){let d=haversine(lastPosition.lat,lastPosition.lon,p.lat,p.lon);if(d>2&&d<100)distanceMeters+=d}lastPosition=p;points.push(p);$('gpsStatus').textContent='GPS ATIVO';$('coords').textContent=`${p.lat.toFixed(5)}, ${p.lon.toFixed(5)} • precisão ±${Math.round(p.accuracy)} m`;$('map').innerHTML=`<div>📍 GPS conectado<br><strong>${points.length}</strong> posições registradas<br><small>Última posição: ${p.lat.toFixed(4)}, ${p.lon.toFixed(4)}</small></div>`;render()},err=>{toast('Não foi possível acessar o GPS. Verifique a permissão e use HTTPS.');$('gpsStatus').textContent='ERRO NO GPS'},{enableHighAccuracy:true,maximumAge:1000,timeout:15000})}
+function haversine(a,b,c,d){const R=6371000,rad=x=>x*Math.PI/180;let x=rad(c-a),y=rad(d-b);let z=Math.sin(x/2)**2+Math.cos(rad(a))*Math.cos(rad(c))*Math.sin(y/2)**2;return 2*R*Math.asin(Math.sqrt(z))}
+function stopRun(){if(!running)return;elapsed+=(Date.now()-startTime)/1000;running=false;clearInterval(timer);if(watchId!==null)navigator.geolocation.clearWatch(watchId);watchId=null;lastPosition=null;$('startBtn').disabled=false;$('stopBtn').disabled=true;render();let entry={date:new Date().toLocaleString('pt-BR'),km:(distanceMeters/1000).toFixed(2),duration:fmtTime(elapsed),pace:$('pace').textContent};if(distanceMeters>0||elapsed>0){history.unshift(entry);localStorage.setItem('jcvsHistory',JSON.stringify(history));renderFeed()}toast('Treino finalizado e salvo no feed!')}
+function resetRun(){if(running)stopRun();distanceMeters=0;elapsed=0;points=[];render();$('coords').textContent='Aguardando localização…';$('map').textContent='Ative o GPS e permita o acesso à localização para acompanhar seu percurso.'}
+function saveProfile(){profile={gender:$('gender').value,height:$('height').value,weight:$('weight').value};localStorage.setItem('jcvsProfile',JSON.stringify(profile));$('profileMsg').textContent=`Perfil salvo • ${profile.height||'—'} cm • ${profile.weight||'—'} kg`;toast('Perfil salvo neste aparelho!')}
+function renderFeed(){$('feed').innerHTML=history.length?history.map(x=>`<div class="feed-item"><strong>🏃 ${x.km} km • ${x.duration}</strong><small>${x.date} · Ritmo ${x.pace}</small></div>`).join(''):'<p class="muted">Suas corridas finalizadas aparecerão aqui.</p>'}
+$('musicFile').addEventListener('change',e=>{let f=e.target.files[0];if(f){$('audio').src=URL.createObjectURL(f);$('audio').play().catch(()=>toast('Toque no play para iniciar a música.'))}});
+if(profile.gender)$('gender').value=profile.gender;if(profile.height)$('height').value=profile.height;if(profile.weight)$('weight').value=profile.weight;if(profile.height||profile.weight)$('profileMsg').textContent=`Perfil salvo • ${profile.height||'—'} cm • ${profile.weight||'—'} kg`;renderFeed();render();
+</script>
+</body></html>
